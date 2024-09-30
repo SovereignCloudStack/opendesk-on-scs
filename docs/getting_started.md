@@ -5,8 +5,8 @@ Please note the general [Getting Started documentation](https://gitlab.opencode.
 
 ## Choose your components
 
-Decide which [components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/components.md) you want to deploy. It is recommended to get started with the core applications and to enable more apps later. With all apps enabled, the deployment takes more than half an hour.
-In the example configuration below the apps Collabora, Cryptpad, Element, Intercom, Jitsi, Nextcloud, openproject, OX App Suite, OX Connector, and XWiki are disabled for the initial rollout. Without these apps, the initial deployment takes about 10 minutes.
+Decide which [components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/components.md) you want to deploy. If you start with some apps only, you can enable the rest of them later.
+In the example configuration below all apps are enabled for the initial rollout.
 
 ## Basic configuration
 
@@ -91,34 +91,34 @@ databases:
     username: "root"
 
 collabora:
-  enabled: false
+  enabled: true
 
 cryptpad:
-  enabled: false
+  enabled: true
 
 element:
-  enabled: false
+  enabled: true
 
 intercom:
-  enabled: false
+  enabled: true
 
 jitsi:
-  enabled: false
+  enabled: true
 
 nextcloud:
-  enabled: false
+  enabled: true
 
 openproject:
-  enabled: false
+  enabled: true
 
 oxAppsuite:
-  enabled: false
+  enabled: true
 
 oxConnector:
-  enabled: false
+  enabled: true
 
 xwiki:
-  enabled: false
+  enabled: true
 
 ...
 
