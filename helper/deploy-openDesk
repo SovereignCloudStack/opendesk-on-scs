@@ -1,0 +1,114 @@
+#!/bin/bash
+
+set -e
+
+### Your settings here:
+DEBUG_ENABLED=yes
+OPENDESK_DEPLOYMENT_REPO="PATH-TO-YOUR-COPY-OF-OPENDESK-REPO"
+OPENDESK_SMTPRELAY_PASSWORD="***"
+# Add a master password (used to generated passwords during the deployment)
+OPENDESK_MASTER_PASSWORD="***"
+DOMAIN="example.org"
+export DOMAIN="example.org"
+# Add your Kubernetes namespace, e.g. "dev":
+NAMESPACE="dev"
+ENV=${NAMESPACE}
+
+### Deploy a cluster issuer for Letsencrypt in the cert-manager namespace.
+### Add your nameserver access configuration.
+if [[ ! $(kubectl get clusterissuers.cert-manager.io letsencrypt-prod -n cert-manager) ]]; then
+    cat >cluster-issuer.yaml <<EOF
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-dns-provider
+data:
+  secret-access-key: my-generated-access-token
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    privateKeySecretRef:
+      name: example-account-key
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        my-dns-provider:
+          region: ""
+          accessKeyID: my-key-id
+          secretAccessKeySecretRef:
+            name: my-dns-provider
+            key: secret-access-key
+      selector:
+        dnsNames:
+          - "*.${DOMAIN}"
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    privateKeySecretRef:
+      name: example-account-key
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        my-dns-provider:
+          region: ""
+          accessKeyID: my-key-id
+          secretAccessKeySecretRef:
+            name: my-dns-provider
+            key: secret-access-key
+      selector:
+        dnsNames:
+          - "*.${DOMAIN}"
+```
+
+###
+echo "Deploying openDesk on ${DOMAIN}" in namespace ${NAMESPACE}.
+
+### Check presence of custom namespace for deployment
+### Add ingress resource to the namespace
+if [[ $(kubectl get namespaces | grep ${NAMESPACE}) = "" ]]; then
+    kubectl create namespace ${NAMESPACE}
+    cat >ingress-resource.yaml <<EOF
+---
+apiVersion: "networking.k8s.io/v1"
+kind: "Ingress"
+metadata:
+  name: "${DOMAIN}"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: "nginx"
+  tls:
+    - hosts:
+        - "${DOMAIN}"
+        - "*.${DOMAIN}"
+      secretName: "opendesk-certificates-tls"
+  rules:
+    - host: "*.${DOMAIN}"
+      http:
+        paths:
+          - pathType: "Prefix"
+            path: "/"
+            backend:
+              service:
+                name: "ums-portal-frontend"
+                port:
+                  number: 443
+EOF
+    kubectl apply -f ingress-resource.yaml -n ${NAMESPACE}
+fi
+
+# Deploy.
+cd ${OPENDESK_DEPLOYMENT_REPO}
+time helmfile apply -e ${ENV} -n ${NAMESPACE}
+echo "Done. Visit https://portal.${DOMAIN} in your browser."
+
+#EOF
