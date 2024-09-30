@@ -6,7 +6,7 @@ openDesk has many configuration options. You can view them and their default val
 
  For the configuration of the basic components please have a look at the `.yaml` files in `helmfile/environments/default`.
 
- ```
+ ```bash
  $ ls helmfile/environments/default
 cache.yaml
 certificate.yaml
@@ -42,7 +42,7 @@ To overwrite a specific default setting, copy the snippet into you own `values.y
 
 The settings of the apps reside underneath `helmfile/apps` (just like their helmfiles). As you see, the different apps have different numbers of values files. Review them carefully and edit your own `values.yaml.gotmpl` to overwrite any default setting.
 
-```
+```bash
 $ tree helmfile/apps/
 helmfile/apps/
 ├── collabora
