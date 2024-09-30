@@ -5,13 +5,12 @@ Please note the general [Getting Started documentation](https://gitlab.opencode.
 
 ## Choose your components
 
-Decide which [components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/components.md) you want to deploy. It is recommended to get started with the core applications and to enable more apps later. With all apps enabled, the deployment takes more than half an hour. 
+Decide which [components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/components.md) you want to deploy. It is recommended to get started with the core applications and to enable more apps later. With all apps enabled, the deployment takes more than half an hour.
 In the example configuration below the apps Collabora, Cryptpad, Element, Intercom, Jitsi, Nextcloud, openproject, OX App Suite, OX Connector, and XWiki are disabled for the initial rollout. Without these apps, the initial deployment takes about 10 minutes.
 
 ## Basic configuration
 
-You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](#configuration) chapter for more details. 
-
+You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](docs/configuration.md) chapter for more details.
 
 ```yaml
 {{/*
@@ -126,13 +125,18 @@ xwiki:
 ```
 
 ## Namespace
+
 Create a namespace in your SCS cluster:
-```
+
+```bash
 kubectl create namespace your-namespace
 ```
+
 ## Deploy an ingress resource inside the namespace
+
 Create an ingress resource:
-```
+
+```bash
 cat >ingress-resource.yaml <<EOF
 ---
 apiVersion: "networking.k8s.io/v1"
@@ -163,30 +167,34 @@ EOF
 ```
 
 Deploy the ingress resource inside your namespace:
-```
+
+```bash
 kubectl apply -f ingress-resource.yaml -n your-namespace
 ```
 
 ## Deployment
 
 Trigger the deployment:
+
 ```bash
-$ OPENDESK_SMTPRELAY_PASSWORD="************" OPENDESK_MASTER_PASSWORD="************" DOMAIN="example.org" helmfile apply -e example-env -n your-namespace
+OPENDESK_SMTPRELAY_PASSWORD="************" OPENDESK_MASTER_PASSWORD="************" DOMAIN="example.org" helmfile apply -e example-env -n your-namespace
 
 ```
 
 ## First login
-Two accounts, an admin and a user account, are automatically created for you. 
+
+Two accounts, an admin and a user account, are automatically created for you.
 
 The default admin user is called `default.admin`, you can retrieve its password by running:
+
 ```bash
-$ kubectl -n your-namespace get secret ums-nubus-credentials -o json | jq -r '.data.admin_password' | base64 -d
+kubectl -n your-namespace get secret ums-nubus-credentials -o json | jq -r '.data.admin_password' | base64 -d
 ```
 
-
 The default user is called `default.user`, you can retrieve its password by running:
+
 ```bash
-$ kubectl -n your-namespace get secret ums-nubus-credentials -o json | jq -r '.data.user_password' | base64 -d
+kubectl -n your-namespace get secret ums-nubus-credentials -o json | jq -r '.data.user_password' | base64 -d
 ```
 
 Open the portal in your browser, e.g. `https://portal.example.org` and log in.
