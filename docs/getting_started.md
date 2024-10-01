@@ -2,6 +2,35 @@
 
 Please note the general [Getting Started documentation](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/getting-started.md) by openDesk.
 
+## Clone the openDesk repository
+
+Clone the [openDesk repository](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk) to your local computer:
+
+```bash
+git clone https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk
+cd opendesk
+```
+
+## Add settings for your environment
+
+Create your own directory for one or more environments:
+
+```bash
+mkdir -p helmfile/environments/example-env/dev/
+```
+
+In the folder you created, add one or more files with the configuration for your environment, e.g. `values.yaml.gotmpl` (see the [Getting Started](getting_started) chapter for an example).
+
+Reference the environment you want to deploy in `helmfile.yaml`:
+
+```bash
+cat helmfile.yaml  <<__EOF__
+example-env:
+  values:
+    - "helmfile/environments/example-env/dev/*.yaml.gotmpl"
+__EOF__
+```
+
 ## Choose your components
 
 Decide which [components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/components.md) you want to deploy. If you start with some apps only, you can enable the rest of them later.
@@ -9,7 +38,7 @@ In the example configuration below all apps are enabled for the initial rollout.
 
 ## Basic configuration
 
-You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](docs/configuration.md) chapter for more details.
+You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](configuration.md) chapter for more details.
 
 ```yaml
 {{/*
@@ -179,6 +208,8 @@ Trigger the deployment:
 OPENDESK_SMTPRELAY_PASSWORD="************" OPENDESK_MASTER_PASSWORD="************" DOMAIN="example.org" helmfile apply -e example-env -n your-namespace
 
 ```
+
+Note that the [wrapper script](helper/deploy-openDesk) supports you in running some of the above tasks.
 
 ## First login
 
