@@ -1,6 +1,6 @@
 # Quickstart
 
-To get started quickly, you can use the [wrapper script](../helper/deploy-openDesk) that does parts of the work described in [Getting started](getting_started.md). Please see that page for details nevertheless.
+To get started quickly, you can use the [wrapper script](helper/deploy-openDesk) that does parts of the work described in [Getting started](getting_started.md). Please see that page for details nevertheless.
 
 - [Get a Sovereign Cloud Stack cluster](https://docs.scs.community/docs/faq/).
 - Go through the openDesk [requirements](requirements.md).
@@ -23,6 +23,6 @@ example-env:
 __EOF__
 ```
 
-- Download the [wrapper script](../helper/deploy-openDesk). Make it executable.
+- Download the [wrapper script](helper/deploy-openDesk). Make it executable.
 - Edit the variables at the top of the script to fit your needs.
 - Run it.

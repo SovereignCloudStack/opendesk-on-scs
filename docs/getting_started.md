@@ -209,7 +209,7 @@ OPENDESK_SMTPRELAY_PASSWORD="************" OPENDESK_MASTER_PASSWORD="***********
 
 ```
 
-Note that the [wrapper script](../helper/deploy-openDesk) supports you in running some of the above tasks.
+Note that the [wrapper script](helper/deploy-openDesk) supports you in running some of the above tasks.
 
 ## First login
 
