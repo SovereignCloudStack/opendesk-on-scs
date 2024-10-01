@@ -1,4 +1,3 @@
-
 # Requirements
 
 You can find the general [requirements](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/requirements.md) in the openDesk documentation. Please study them before beginning. This howto only touches on requirements concerning the rollout on an SCS cluster.
@@ -9,16 +8,16 @@ You can find the general [requirements](https://gitlab.opencode.de/bmi/opendesk/
 
 You will need the following command line tools on your machine:
 
-* [kubectl](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/)
-* [helm](https://helm.sh/)
-* [helmfile](https://helmfile.readthedocs.io/en/latest/)
-* [helmDiff](https://github.com/databus23/helm-diff)
+- [kubectl](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/)
+- [helm](https://helm.sh/)
+- [helmfile](https://helmfile.readthedocs.io/en/latest/)
+- [helmDiff](https://github.com/databus23/helm-diff)
 
 If you run into any problems, please check the openDesk [requirements](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/requirements.md) for the required software versions of these tools.
 
 ### KUBECONFIG
 
-Store the cluster access information for your SCS cluster in `~/.kube/config`. Test the access to the cluster on your command line with a ```kubectl``` command, e.g. `kubectl get nodes`.
+Store the cluster access information for your SCS cluster in `~/.kube/config`. Test the access to the cluster on your command line with a `kubectl` command, e.g. `kubectl get nodes`.
 
 ## Preparation of the nameserver
 
@@ -46,7 +45,7 @@ helm upgrade -i cert-manager jetstack/cert-manager --namespace cert-manager --cr
 
 The openDesk helmfiles are based on the assumption that you - as the cluster admin - take care of a certificate issuer that can just be used then. For Letsencrypt's ACME dns-01 challenge add a [cluster issuer](https://cert-manager.io/docs/concepts/issuer/) by defining it in a file, e.g. `clusterIssuer.yaml` and applying it to the cluster. Check the documentation for your respective DNS provider to put together the relevant configuration details.
 
-``` yaml
+```yaml
 ---
 apiVersion: v1
 kind: Secret
@@ -65,16 +64,16 @@ spec:
       name: example-account-key
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     solvers:
-    - dns01:
-        my-dns-provider:
-          region: eu-west-1
-          accessKeyID: my-key-id
-          secretAccessKeySecretRef:
-            name: my-dns-provider
-            key: secret-access-key
-      selector:
-        dnsNames:
-          - '*.example.org'
+      - dns01:
+          my-dns-provider:
+            region: eu-west-1
+            accessKeyID: my-key-id
+            secretAccessKeySecretRef:
+              name: my-dns-provider
+              key: secret-access-key
+        selector:
+          dnsNames:
+            - '*.example.org'
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -86,16 +85,16 @@ spec:
       name: example-account-key
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
-    - dns01:
-        my-dns-provider:
-          region: eu-west-1
-          accessKeyID: my-key-id
-          secretAccessKeySecretRef:
-            name: my-dns-provider
-            key: secret-access-key
-      selector:
-        dnsNames:
-          - '*.example.org'
+      - dns01:
+          my-dns-provider:
+            region: eu-west-1
+            accessKeyID: my-key-id
+            secretAccessKeySecretRef:
+              name: my-dns-provider
+              key: secret-access-key
+        selector:
+          dnsNames:
+            - '*.example.org'
 ```
 
 ### Ingress Controller
@@ -110,7 +109,7 @@ helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.git
 
 Prometheus is a requirement:
 
-``` bash
+```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm upgrade -i prometheus prometheus-community/kube-prometheus-stack --namespace prometheus --create-namespace
 ```

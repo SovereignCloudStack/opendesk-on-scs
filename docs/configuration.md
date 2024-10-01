@@ -4,10 +4,10 @@ openDesk has many configuration options. You can view them and their default val
 
 ## Basic components
 
- For the configuration of the basic components please have a look at the `.yaml` files in `helmfile/environments/default`.
+For the configuration of the basic components please have a look at the `.yaml` files in `helmfile/environments/default`.
 
- ```bash
- $ ls helmfile/environments/default
+```bash
+$ ls helmfile/environments/default
 cache.yaml
 certificate.yaml
 charts.yaml
