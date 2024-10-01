@@ -1,7 +1,7 @@
 # Overview
 
 This guide takes you through the steps to deploy [openDesk](https://gitlab.opencode.de/bmi/opendesk) on a Sovereign Cloud Stack Kubernetes cluster.
-openDesk is a Kubernetes based, open-source and cloud-native digital workplace suite provided by the *Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH*.
+openDesk is a Kubernetes based, open-source and cloud-native digital workplace suite provided by the _Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH_.
 
 It bundles [a number of modular software components](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/getting-started.md#apps) for collaboration in organizations, such as an identity and access management system with a web based portal (Univention Nubus), a groupware (OX App Suite), tools for knowledge and project management (XWiki, OpenProject), file sharing (Nextcloud), video conferencing (Jitsi), chat (Element), and weboffice tools for online editing (Collabora, Cryptpad).
 
