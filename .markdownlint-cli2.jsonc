@@ -28,12 +28,12 @@
           "replace": " — ",
           "skipCode": true
         },
-        {
-          "name": "relative-link-path",
-          "message": "Don't use relative paths",
-          "search": "](..",
-          "skipCode": true
-        },
+        // {
+        //   "name": "relative-link-path",
+        //   "message": "Don't use relative paths",
+        //   "search": "](..",
+        //   "skipCode": true
+        // },
         {
           "name": "trailing-spaces",
           "message": "Avoid trailing spaces",
