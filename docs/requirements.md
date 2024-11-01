@@ -38,7 +38,7 @@ Install cert-manager in your cluster. It is required to include the custom resou
 ```bash
 helm repo add jetstack https://charts.jetstack.io --force-update
 helm repo update
-helm upgrade -i cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.14.3 --set installCRDs=true
+helm upgrade -i cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
 ```
 
 ### Deploy a certificate issuer
