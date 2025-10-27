@@ -24,7 +24,7 @@ In the folder you created, add one or more files with the configuration for your
 Reference the environment you want to deploy in `helmfile.yaml`:
 
 ```bash
-cat helmfile.yaml  <<__EOF__
+cat >helmfile.yaml  <<__EOF__
 example-env:
   values:
     - "helmfile/environments/example-env/dev/*.yaml.gotmpl"
