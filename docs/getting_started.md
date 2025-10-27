@@ -40,7 +40,9 @@ In the example configuration below all apps are enabled for the initial rollout.
 
 You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](configuration.md) chapter for more details.
 
-```yaml
+```bash
+
+cat >helmfile/environments/example-env/dev/values.yaml.gotmpl <<__EOF__
 {{/*
 SPDX-FileCopyrightText: 2024 Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH
 SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
@@ -147,9 +149,7 @@ oxConnector:
 
 xwiki:
   enabled: true
-
-...
-
+EOF
 ```
 
 ## Namespace
