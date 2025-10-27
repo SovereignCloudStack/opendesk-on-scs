@@ -19,7 +19,7 @@ Create your own directory for one or more environments:
 mkdir -p helmfile/environments/example-env/dev/
 ```
 
-In the folder you created, add one or more files with the configuration for your environment, e.g. `values.yaml.gotmpl` (see the [Getting Started](getting_started) chapter for an example).
+In the folder you created, add one or more files with the configuration for your environment, e.g. `values.yaml.gotmpl` (see the [Basic configuration](#basic-configuration) chapter for an example).
 
 Reference the environment you want to deploy in `helmfile.yaml`:
 
