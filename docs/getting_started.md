@@ -1,6 +1,6 @@
 # Getting started: Deployment from a local machine
 
-Please note the general [Getting Started documentation](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/getting-started.md) by openDesk.
+Please note the general [Getting Started documentation](https://docs.opendesk.eu/operations/getting-started/) by openDesk.
 
 ## Clone the openDesk repository
 
@@ -19,12 +19,12 @@ Create your own directory for one or more environments:
 mkdir -p helmfile/environments/example-env/dev/
 ```
 
-In the folder you created, add one or more files with the configuration for your environment, e.g. `values.yaml.gotmpl` (see the [Getting Started](getting_started) chapter for an example).
+In the folder you created, add one or more files with the configuration for your environment, e.g. `values.yaml.gotmpl` (see the [Basic configuration](#basic-configuration) chapter for an example).
 
 Reference the environment you want to deploy in `helmfile.yaml`:
 
 ```bash
-cat helmfile.yaml  <<__EOF__
+cat >helmfile.yaml  <<__EOF__
 example-env:
   values:
     - "helmfile/environments/example-env/dev/*.yaml.gotmpl"
@@ -40,7 +40,9 @@ In the example configuration below all apps are enabled for the initial rollout.
 
 You can use the following example settings as a starting point for your `helmfile/environments/example-env/dev/values.yaml.gotmpl` file. Please see the [configuration](configuration.md) chapter for more details.
 
-```yaml
+```bash
+
+cat >helmfile/environments/example-env/dev/values.yaml.gotmpl <<__EOF__
 {{/*
 SPDX-FileCopyrightText: 2024 Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH
 SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
@@ -147,9 +149,7 @@ oxConnector:
 
 xwiki:
   enabled: true
-
-...
-
+EOF
 ```
 
 ## Namespace

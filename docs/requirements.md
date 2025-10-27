@@ -38,7 +38,7 @@ Install cert-manager in your cluster. It is required to include the custom resou
 ```bash
 helm repo add jetstack https://charts.jetstack.io --force-update
 helm repo update
-helm upgrade -i cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
+helm upgrade -i cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set crds.enabled=true
 ```
 
 ### Deploy a certificate issuer
@@ -100,6 +100,17 @@ spec:
 ### Ingress Controller
 
 [Ingress-nginx](https://github.com/kubernetes/ingress-nginx) is the only tested ingress controller. The installation must support snippet annotations (`allowSnippetAnnotations=true`). You can install and update it as shown below. Note that for production environments it is recommended to reconsider the HSTS setting given here.
+
+#### Important note regarding Ingress NGINX >= 1.12.0
+
+With Ingress NGINX 1.12.0 new security standards have been introdcued, which are incompatible with the current openDesk versions.
+If you want to use use NGINX >= 1.12.0, you need to pass the following additional settings:
+
+```yaml
+controller.config.annotations-risk-level=Critical controller.config.strict-validate-path-type=false
+```
+
+#### Installing the NGINX ingress
 
 ```bash
 helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx  --namespace ingress-nginx --create-namespace --set controller.allowSnippetAnnotations=true --set controller.config.hsts=false
