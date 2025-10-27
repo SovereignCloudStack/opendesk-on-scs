@@ -1,6 +1,6 @@
 # Getting started: Deployment from a local machine
 
-Please note the general [Getting Started documentation](https://gitlab.opencode.de/bmi/opendesk/deployment/opendesk/-/blob/main/docs/getting-started.md) by openDesk.
+Please note the general [Getting Started documentation](https://docs.opendesk.eu/operations/getting-started/) by openDesk.
 
 ## Clone the openDesk repository
 
